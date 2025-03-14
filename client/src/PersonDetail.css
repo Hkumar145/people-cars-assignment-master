@@ -1,0 +1,73 @@
+/* Global Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Person Detail Section */
+  .person-details {
+    background-color: #fff;
+    margin: 20px;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .header h1 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  /* Loading and Error States */
+  .loading-text, .error-text {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #666;
+  }
+  
+  .error-text {
+    color: red;
+  }
+  
+  /* Car Details Section */
+  .cars-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+  
+  .car-detail {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .car-info {
+    font-size: 1.1rem;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  .car-price {
+    font-size: 1rem;
+    color: #28a745;
+  }
+  
+  /* Responsive Styles */
+  @media (min-width: 600px) {
+    .cars-list {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  
+  @media (min-width: 900px) {
+    .cars-list {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+  }
+  
