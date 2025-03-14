@@ -35,6 +35,7 @@ const typeDefs = gql`
     cars: [Car]
     person(id: ID!): Person
     car(id: ID!): Car
+    personWithCars(id: ID!): Person
   }
 
   type Mutation {
@@ -71,35 +72,35 @@ const resolvers = {
     people: () => people,
     cars: () => cars,
     person: (_, { id }) => people.find(person => person.id === id),
-    car: (_, { id }) => cars.find(car => car.id === id)
+    car: (_, { id }) => cars.find(car => car.id === id),
+    personWithCars: (_, { id }) => {
+      const person = people.find(person => person.id === id);
+      if (!person) return null;
+      const personCars = cars.filter(car => car.personId === id);
+      return { ...person, cars: personCars };
+    }
   },
-
   Person: {
     cars: (parent) => cars.filter(car => car.personId === parent.id)
   },
-
   Mutation: {
     addPerson: (_, { firstName, lastName }) => {
       const newPerson = { id: String(people.length + 1), firstName, lastName };
       people.push(newPerson);
       return newPerson;
     },
-
     addCar: (_, { year, make, model, price, personId }) => {
       const newCar = { id: String(cars.length + 1), year, make, model, price, personId };
       cars.push(newCar);
       return newCar;
     },
-
     deletePerson: (_, { id }) => {
       const personIndex = people.findIndex(person => person.id === id);
       if (personIndex === -1) return null;
-
       const deletedPerson = people.splice(personIndex, 1)[0];
       cars = cars.filter(car => car.personId !== id);
       return deletedPerson;
     },
-
     updateCar: (_, { id, year, make, model, price }) => {
       const carIndex = cars.findIndex(car => car.id === id);
       if (carIndex === -1) throw new Error('Car not found');
@@ -107,14 +108,12 @@ const resolvers = {
       cars[carIndex] = updatedCar;
       return updatedCar;
     },
-
     deleteCar: (_, { id }) => {
       const carIndex = cars.findIndex(car => car.id === id);
       if (carIndex === -1) throw new Error('Car not found');
       const deletedCar = cars.splice(carIndex, 1)[0];
       return deletedCar;
     },
-
     updatePerson: (_, { id, firstName, lastName }) => {
       const person = people.find(p => p.id === id);
       if (!person) throw new Error('Person not found');
@@ -124,6 +123,7 @@ const resolvers = {
     }
   }
 };
+
 
 // Set up Apollo Server
 const server = new ApolloServer({

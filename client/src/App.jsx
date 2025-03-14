@@ -1,8 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './components/HomePage';
-import PersonShow from './PersonDetail';
-import { Layout } from 'antd';
+import PersonDetail from './ShowPage';
+import { Layout, Spin, Alert } from 'antd';
 
 const { Content } = Layout;
 
@@ -13,7 +13,7 @@ const App = () => {
         <Content style={{ padding: '50px' }}>
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/people/:id" element={<PersonShow />} />
+            <Route path="/people/:id" element={<PersonDetail />} />
           </Routes>
         </Content>
       </Layout>

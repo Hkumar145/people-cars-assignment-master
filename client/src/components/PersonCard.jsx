@@ -1,6 +1,7 @@
 import { Modal, Input, Button, Form, message, Row, Col } from 'antd';
 import { useMutation } from '@apollo/client';
 import { UPDATE_CAR, GET_CARS } from './../queries';
+import { CarOutlined } from '@ant-design/icons';
 
 const EditCarModal = ({ car, setIsEditModalVisible }) => {
   const [updateCar] = useMutation(UPDATE_CAR, { refetchQueries: [{ query: GET_CARS }] });
@@ -76,7 +77,7 @@ const EditCarModal = ({ car, setIsEditModalVisible }) => {
 
         <Form.Item>
           <Button type="primary" htmlType="submit" block>
-            Update Car
+            Update  <CarOutlined />
           </Button>
         </Form.Item>
       </Form>
